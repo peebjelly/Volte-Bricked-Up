@@ -105,6 +105,7 @@ public class Emojis
     public static Emoji Bow => "\uD83D\uDE47".ToEmoji();
     public static Emoji Bowling => "\uD83C\uDFB3".ToEmoji();
     public static Emoji Boy => "\uD83D\uDC66".ToEmoji();
+    public static Emoji Bricks => "\ud83e\uddf1".ToEmoji();
     public static Emoji Bread => "\uD83C\uDF5E".ToEmoji();
     public static Emoji BrideWithVeil => "\uD83D\uDC70".ToEmoji();
     public static Emoji BridgeAtNight => "\uD83C\uDF09".ToEmoji();
