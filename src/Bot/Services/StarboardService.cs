@@ -46,7 +46,7 @@ public sealed class StarboardService : VolteService
         if (channel is not IGuildChannel guildChannel) return false;
 
         // Ignore non-star reactions
-        if (reaction.Emote.Name != Emojis.Star.Name) return false;
+        if (reaction.Emote.Name != Emojis.Bricks.Name) return false;
             
         // Ignore reactions from the current user
         if (reaction.UserId == _client.CurrentUser.Id) return false;
@@ -90,7 +90,7 @@ public sealed class StarboardService : VolteService
                 }
                 else if (starboard.DeleteInvalidStars)
                     // Invalid star! Either the starboard post or the actual message already has a reaction by this user.
-                    await message.RemoveReactionAsync(Emojis.Star, reaction.UserId,
+                    await message.RemoveReactionAsync(Emojis.Bricks, reaction.UserId,
                         DiscordHelper.RequestOptions(x =>
                             x.AuditLogReason = "Star reaction is invalid: User has already starred!"));
             }
@@ -99,7 +99,7 @@ public sealed class StarboardService : VolteService
         {
             using (await _starboardReadWriteLock.LockAsync(messageId))
             {
-                if (message.Reactions.FirstOrDefault(e => e.Key.Name == Emojis.Star.Name).Value.ReactionCount >= starboard.StarsRequiredToPost)
+                if (message.Reactions.FirstOrDefault(e => e.Key.Name == Emojis.Bricks.Name).Value.ReactionCount >= starboard.StarsRequiredToPost)
                 {
                     // Create new star message!
                     entry = new()
@@ -254,7 +254,7 @@ public sealed class StarboardService : VolteService
             if (entry.StarCount >= starboard.StarsRequiredToPost)
             {
                 // Update existing message
-                var targetMessage = $"{Emojis.Star} {entry.StarCount}";
+                var targetMessage = $"{Emojis.Bricks} {entry.StarCount}";
                 if (starboardMessage.Content != targetMessage)
                     await starboardUserMessage.ModifyAsync(e => e.Content = targetMessage);
             }
@@ -300,9 +300,9 @@ public sealed class StarboardService : VolteService
         // field unless it is present in Discord.Net's message cache.
         message = await message.Channel.GetMessageAsync(message.Id);
 
-        var result = await starboardTextChannel.SendMessageAsync($"{Emojis.Star} {starCount}", 
+        var result = await starboardTextChannel.SendMessageAsync($"{Emojis.Bricks} {starCount}", 
             embed: GetStarboardEmbed(message).Build());
-        await result.AddReactionAsync(Emojis.Star);
+        await result.AddReactionAsync(Emojis.Bricks);
         return result;
     }
 }
